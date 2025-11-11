@@ -4,7 +4,8 @@
 
 This project sets up a VPC in AWS with both public and private subnets, deploying EC2 instances as Nginx reverse proxies and Flask web application backends. It also configures NAT Gateway, Internet Gateway, and two load balancers (public and internal).
 ## project Structure 
-![Architecture Diagram](ba8302ce-a321-4cbb-8549-34076ff00aaf.png)
+![Architecture Diagram](<img width="1228" height="658" alt="image" src="https://github.com/user-attachments/assets/88a00f10-8406-4636-a0fb-5f9f00a9e9d6" />
+)
 
 ## Architecture
 

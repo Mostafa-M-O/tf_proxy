@@ -4,7 +4,7 @@
 
 This project sets up a VPC in AWS with both public and private subnets, deploying EC2 instances as Nginx reverse proxies and Flask web application backends. It also configures NAT Gateway, Internet Gateway, and two load balancers (public and internal).
 ## project Structure 
-![Architecture Diagram](<img width="1228" height="658" alt="image" src="https://github.com/user-attachments/assets/88a00f10-8406-4636-a0fb-5f9f00a9e9d6" />
+<img width="1228" height="658" alt="image" src="https://github.com/user-attachments/assets/6cbd38dd-3d37-404b-a1d8-46cacca58fc7" />
 )
 
 ## Architecture
@@ -44,15 +44,15 @@ This project sets up a VPC in AWS with both public and private subnets, deployin
 
 ### Provisioners
 
-* **Remote-exec**: Installs Nginx or Apache on EC2 instances.
 * **Local-exec**: Prints all IPs to `all-ips.txt` in the format:
 
   ```
-    public-ip1 1.1.1.1
-    public-ip2 2.2.2.2
+  public-ip1 98.94.77.49
+  public-ip2 52.87.152.158
+  private-ip-1 10.0.1.27
+  private-ip-2 10.0.3.54
   ```
 
-- **File**: Copies Flask application files from local machine to private EC2 instances.
 
 ### Data Sources
 - AWS AMI IDs are dynamically retrieved using Terraform data sources.

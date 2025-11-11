@@ -4,41 +4,8 @@
 
 This project sets up a VPC in AWS with both public and private subnets, deploying EC2 instances as Nginx reverse proxies and Flask web application backends. It also configures NAT Gateway, Internet Gateway, and two load balancers (public and internal).
 ## project Structure 
-terraform-aws-reverse-proxy/
-├── main.tf                    # Root orchestration
-├── variables.tf               # Root variables
-├── outputs.tf                 # Root outputs
-├── providers.tf               # AWS provider config
-├── backend.tf                 # S3 backend config
-├── terraform.tfvars          # Your variable values
-│
-├── modules/
-│   ├── network/              # VPC, Subnets, IGW, NAT
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   └── outputs.tf
-│   │
-│   ├── security/             # Security Groups
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   └── outputs.tf
-│   │
-│   ├── compute/              # EC2 with Provisioners
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   └── outputs.tf
-│   │
-│   └── loadbalancing/        # ALBs & Target Groups
-│       ├── main.tf
-│       ├── variables.tf
-│       └── outputs.tf
-│
-├── provisioners/
-│   └── app/
-│       ├── app.py            # Flask backend
-│       └── requirements.txt
-│
-└── all-ips.txt               # Generated IP list
+![Architecture Diagram](ba8302ce-a321-4cbb-8549-34076ff00aaf.png)
+
 ## Architecture
 
 * **VPC**: Custom CIDR blocks for public and private subnets.

@@ -54,28 +54,31 @@ This project sets up a VPC in AWS with both public and private subnets, deployin
   ```
 
 
-### Data Sources
-- AWS AMI IDs are dynamically retrieved using Terraform data sources.
 
-## Flask Application
-- Minimal Flask app deployed to private EC2 instances.
-- Serves a styled static page.
-- Directory structure:
+
+### Proxy Configure
 
 ```
-app/
-├── app.py
-├── static/
-│   └── style.css
-└── templates/
-    └── index.html
+server {
+    listen 80;
+    server_name _;
+    resolver 10.0.0.2 valid=30s;
+    set $backend_server "http://${var.internal_alb_dns}";
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    location / {
+        proxy_pass $backend_server;
+    }
+}
 ```
 
 ### Accessing the App
 
 * Access public ALB -> Nginx proxies -> Internal ALB -> Flask backends.
 
-## Trying It Yourself
+## Quick Start
 
 1. Clone the repository:
 
@@ -84,40 +87,16 @@ git clone <repository-url>
 cd <project-folder>
 ```
 
-2. Create your ssh key:
-
-```bash
-ssh-keygen -t rsa -b 4096 -f ~/.ssh/terraform_key -C "terraform@project"
-```
-
-3. Create your S3 bucket for the terraform state file, then update `backend.tf` to use it.
-
-4. Configure Terraform variables in `terraform.tfvars` or via environment variables.
-
-```bash
-cp terraform.tfvars.example terraform.tfvars
-vim terraform.tfvars # configure the ssh key you generated.
-```
-
-5. Initialize Terraform and select workspace:
+2. Initialize Terraform and select workspace:
 
 ```bash
 terraform init
-terraform workspace new dev
-terraform workspace select dev
-```
-
-6. Apply Terraform to create resources:
-
-```bash
+terraform plan
 terraform apply
 ```
 
-7. Confirm all EC2 instances are running and check `all-ips.txt` for public IPs.
 
-8. Verify the Flask application through the public ALB DNS.
-
-9. When done, destroy resources to avoid charges:
+3. When done, destroy resources to avoid charges:
 
 ```bash
 terraform destroy
@@ -125,5 +104,4 @@ terraform destroy
 
 ## Notes
 
-* Terraform variables should be configured before `terraform apply`.
 * IP addresses and DNS names of EC2 instances and ALBs are saved in `all-ips.txt`.
